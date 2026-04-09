@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();;
             $table->string('phone')->nullable();
             $table->string('secondary_phone')->nullable();
             $table->boolean('is_previous_client')->default(false);
@@ -28,6 +28,9 @@ return new class extends Migration
                 'client',
                 'customer_service'
             ])->default('client');
+            $table->string('code')->nullable(); 
+
+$table->timestamp('code_expires_at')->nullable(); 
 //            $table->foreignId('city_id')->constrained()->nullable();
             $table->string('address')->nullable();
             $table->integer('elevators_count')->default(0);

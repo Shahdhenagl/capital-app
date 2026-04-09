@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+
 
 class User extends Authenticatable
 {
-    use  HasFactory, Notifiable;
+    use  HasApiTokens,HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
@@ -26,10 +28,12 @@ class User extends Authenticatable
         'commercial_register',
         'tax_card'
         ,'end_date',
-        'start_date'
+        'start_date',
+        'code',
+        'code_expires_at'
     ];
 
-    // 👇 الحقول اللي لازم تتخفي عند الjson
+    
     protected $hidden = [
         'password',
         'remember_token',
@@ -44,4 +48,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(ElevatorUser::class);
     }
+   
+ // app/Models/User.php
+
+public function sendCode()
+{
+    // 1. توليد الكود
+    $code = rand(1111, 9999);
+
+    // 2. التحديث في قاعدة البيانات
+    $this->update([
+        'code' => $code,
+        'code_expires_at' => now()->addMinutes(5),
+    ]);
+
+    // 3. هنا تضعين كود الإرسال الفعلي (مثلاً استدعاء SMS Service)
+    // SendSms($this->phone, $code);
+
+    return $code; 
+}
+
 }

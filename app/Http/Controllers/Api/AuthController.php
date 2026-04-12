@@ -8,7 +8,9 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\CodeVerificationRequest;
 use App\Traits\ApiResponse;
-use App\Models\User; // الخطأ 1: يجب استدعاء موديل User
+use App\Http\Requests\ResendCodeRequest;
+
+use App\Models\User; 
 
 class AuthController extends Controller
 {
@@ -64,6 +66,19 @@ public function codeVerification(CodeVerificationRequest $request)
         'user' => $user,
         'token' => $token
     ], 'تم التحقق من البيانات بنجاح', 200);
+}
+
+public function resendCode(ResendCodeRequest $request)
+{
+    $user = User::where('phone', $request->phone)->first();
+
+    if (!$user) {
+        return $this->errorResponse('المستخدم غير موجود', 404);
+    }
+
+    $user->sendCode();
+        return $this->codeSentResponse('تم إعادة إرسال كود التحقق بنجاح');
+
 }
 
 }

@@ -13,7 +13,7 @@ Route::get('/user', function (Request $request) {
 
 
 
-//auth 
+//auth
 
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -28,13 +28,16 @@ Route::post('/code/verify',[AuthController::class,'codeVerification']);
 
 
 
-// Route::middleware('auth:api')->group(function () {
-    
-//     Route::post('/create/order', [OrderController::class, 'createOrder']);
-    
-//     // أي راوتس تانية محتاجة حماية بـ Passport بتتحط هنا
-// });
+Route::middleware('auth:api')->group(function () {
+      //user_orders
+    Route::post('/create/order', [OrderController::class, 'createOrder']);
+
+      //manager_orders
+    Route::get('/manager/orders', [OrderController::class, 'managerOrder']);
+    Route::patch('/orders/{id}/assign-technician', [OrderController::class, 'assignTechnician']);
+
+});
 
 
 // جرب تكتبها كدة بالظبط وتأكد إنك جوه api.php
-Route::post('/create/order', [OrderController::class, 'createOrder'])->middleware('auth:api');
+// Route::post('/create/order', [OrderController::class, 'createOrder'])->middleware('auth:api');

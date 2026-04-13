@@ -13,7 +13,13 @@ trait ApiResponse
             'data' => $data
         ], $code);
     }
-
+    public function successMessage($message = "تم بنجاح", $code = 200)
+{
+    return response()->json([
+        'status' => 'success',
+        'message' => $message,
+    ], $code);
+}
     // رسالة الفشل / الخطأ
     public function errorResponse($message = "حدث خطأ", $code = 400, $errors = null)
     {

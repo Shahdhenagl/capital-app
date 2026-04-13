@@ -23,21 +23,31 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+     public function manager()
+    {
+        return $this->belongsTo(User::class,'manager_id');
+    }
+
+      public function technician()
+    {
+        return $this->belongsTo(User::class,'technician_id');
+    }
+
 
     public function category()
     {
         return $this->belongsTo(Category::class);
-    
-    
+
+
     }
 
       public function ElevatorUser()
     {
         return $this->belongsTo(ElevatorUser::class);
-    
-    
+
+
     }
 
-    
+
 
 }

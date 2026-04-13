@@ -14,9 +14,20 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+           $table->foreignId('manager_id')->nullable()->constrained('users')->nullOnDelete();
+           $table->foreignId('technician_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('elevator_user_id')->nullable()->constrained('elevator_users')->onDelete('set null');
+            $table->text('reason')->nullable();
             $table->text('desc')->nullable();
+           $table->enum('status', [
+        'pending',
+        'assigned',
+        'accepted',
+        'rejected',
+        'complete',
+        'not_complete',
+        ])->default('pending');
             $table->timestamps();
         });
     }

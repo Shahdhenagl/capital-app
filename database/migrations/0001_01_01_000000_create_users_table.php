@@ -25,14 +25,16 @@ return new class extends Migration
             $table->enum('type', [
                 'technician',
                 'manager',
-                'client',
+                'user',
                 'customer_service'
-            ])->default('client');
+            ])->default('user');
             $table->string('code')->nullable(); 
 
-$table->timestamp('code_expires_at')->nullable(); 
+         $table->timestamp('code_expires_at')->nullable(); 
 //            $table->foreignId('city_id')->constrained()->nullable();
             $table->string('address')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('long')->nullable();
             $table->integer('elevators_count')->default(0);
             $table->string('elevator_type')->nullable();
             $table->string('commercial_register')->nullable();

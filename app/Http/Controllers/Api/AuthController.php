@@ -19,8 +19,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = User::create($request->validated() + ['type' => 'client']);
-
-        return $this->successResponse($user, 'تم إنشاء الحساب بنجاح', 201);
+    return $this->successResponse($user, __('auth.register_success'), 201);
     }
 
    public function login(LoginRequest $request) 

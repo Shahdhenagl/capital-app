@@ -15,7 +15,11 @@ class Order extends Model
         'user_id',
         'category_id',
         'desc',
-        'elevator_user_id'
+        'elevator_user_id',
+        'status',
+        'image_before',
+        'image_after'
+        
     ];
 
     public function user()

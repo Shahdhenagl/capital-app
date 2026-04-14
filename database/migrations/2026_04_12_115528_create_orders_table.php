@@ -20,14 +20,20 @@ return new class extends Migration
             $table->foreignId('elevator_user_id')->nullable()->constrained('elevator_users')->onDelete('set null');
             $table->text('reason')->nullable();
             $table->text('desc')->nullable();
-           $table->enum('status', [
-        'pending',
-        'assigned',
-        'accepted',
-        'rejected',
-        'complete',
-        'not_complete',
-        ])->default('pending');
+       $table->enum('status', [
+    'pending',
+    'assigned',
+    'accepted',
+    'arrived',
+    'in_progress',
+    'complete',
+    'not_complete',
+    'rejected'
+])->default('pending');
+
+$table->text('image_before')->nullable();
+$table->text('image_after')->nullable();
+
             $table->timestamps();
         });
     }

@@ -7,14 +7,16 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\AssignTechnicianRequest;
+use App\Http\Requests\TechnicianChangeStatusRequest;
 use App\Models\Order;
 use App\Traits\ApiResponse;
+use App\Traits\Uploadable;
 use App\Models\ElevatorUser;
 
 class OrderController extends Controller
 {
 
- use ApiResponse;
+ use ApiResponse,Uploadable;
     public function createOrder( CreateOrderRequest $request)
     {
         $data = $request->validated();
@@ -73,5 +75,37 @@ class OrderController extends Controller
 
     return $this->successMessage('تم تحديث الطلب بنجاح');
 }
+
+
+public function technicianChangeStatus(TechnicianChangeStatusRequest $request)
+    {
+        $user = auth()->user();
+        $order = Order::where('technician_id', $user->id)
+                      ->where('id', $request->order_id)
+                      ->first();
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        $order->status = $request->status;
+
+        if ($request->hasFile('image_before')) {
+            $this->deleteFile($order->image_before, 'orders');
+            $order->image_before = $this->uploadFile($request->file('image_before'), 'orders', 800);
+        }
+
+        if ($request->hasFile('image_after')) {
+            $order->image_after = $this->uploadFile($request->file('image_after'), 'orders', 800);
+        }
+
+        if ($request->status == 'not_complete') {
+            $order->reason = $request->reason;
+        }
+
+        $order->save();
+
+        return response()->json(['message' => 'تم تحديث الطلب بنجاح']);
+    }
 
 }

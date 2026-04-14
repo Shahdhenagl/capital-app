@@ -59,7 +59,7 @@ public function sendCode()
     // 2. التحديث في قاعدة البيانات
     $this->update([
         'code' => $code,
-        'code_expires_at' => now()->addMinutes(5),
+        'code_expires_at' => now()->addMinutes(15),
     ]);
 
     // 3. هنا تضعين كود الإرسال الفعلي (مثلاً استدعاء SMS Service)
@@ -67,5 +67,9 @@ public function sendCode()
 
     return $code; 
 }
+
+
+
+
 
 }

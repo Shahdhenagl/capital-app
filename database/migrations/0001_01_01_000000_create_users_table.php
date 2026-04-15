@@ -21,12 +21,8 @@ return new class extends Migration
             $table->string('secondary_phone')->nullable();
             $table->boolean('is_previous_client')->default(false);
             $table->string('location')->nullable();
-            $table->enum('city', ['مكة', 'جدة']);
-            $table->enum('type', [
-                'technician',
-                'manager',
-                'user',
-                'customer_service'
+            $table->enum('city', ['Makkah','Jeddah']);
+            $table->enum('type',['technician','manager','user','customer_service'
             ])->default('user');
             $table->string('code')->nullable(); 
 

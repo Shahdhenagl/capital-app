@@ -26,7 +26,8 @@ class CreateOrderRequest extends FormRequest
         'category_id' => 'required|exists:categories,id',   
         // 'user_id'=> 'required|exists:users,id',        
         'elevator_user_id'=>'required|exists:elevator_users,id',
-        'desc'=>'required'
+        'desc'=>'required',
+       
         ];
     }
 }

@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Traits\ApiResponse;
 use App\Traits\Uploadable;
 use App\Models\ElevatorUser;
+use App\Jobs\AutoAssignTechnicianJob;
 
 class OrderController extends Controller
 {
@@ -27,6 +28,8 @@ class OrderController extends Controller
 
     $order = Order::create($data);
 
+    AutoAssignTechnicianJob::dispatch($order->id)->delay(now()->addMinutes(1));
+
     return $this->successResponse($order, 'تم انشاء طلب بنجاح', 201);
 
     }
@@ -40,11 +43,11 @@ class OrderController extends Controller
             {
                return $this->errorResponse('غير مسموح لك بالدخول', $code = 400);
             }
-       $orders=Order::where('status','pending')->whereHas('user', function($q)  use ($user)
-            {
-                    $q->where('city', $user->city);
-                    }
-            )->get();
+      $orders = Order::whereIn('status', ['pending', 'rejected', 'not_complete'])
+        ->whereHas('user', function ($q) use ($user) {
+        $q->where('city', $user->city);
+        })
+        ->get();
 
 
     return $this->successResponse($orders, 'تم جلب الطلبات بنجاح', 200);
@@ -107,5 +110,7 @@ public function technicianChangeStatus(TechnicianChangeStatusRequest $request)
 
         return response()->json(['message' => 'تم تحديث الطلب بنجاح']);
     }
+
+
 
 }

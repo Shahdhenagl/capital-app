@@ -18,7 +18,8 @@ return new class extends Migration
            $table->foreignId('technician_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('elevator_user_id')->nullable()->constrained('elevator_users')->onDelete('set null');
-            $table->text('reason')->nullable();
+            $table->text('reason_not_complete')->nullable();
+            $table->text('reason_rejected')->nullable();
             $table->text('desc')->nullable();
        $table->enum('status', [
     'pending',

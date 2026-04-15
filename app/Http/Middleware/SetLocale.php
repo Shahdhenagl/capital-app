@@ -12,7 +12,6 @@ class SetLocale
     {
 
 
-         dd('yosra');
         $locale = $request->header('Accept-Language') ?: config('app.locale');
 
         if (in_array($locale, ['ar', 'en'])) {

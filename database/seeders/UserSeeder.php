@@ -15,12 +15,12 @@ class UserSeeder extends Seeder
 
 public function run(): void
 {
-    $cities = ['مكة', 'جدة'];
+    $cities = ['Makkah', 'Jeddah'];
 
     $types = [
         'technician',
         'manager',
-        'client',
+        'user',
         'customer_service'
     ];
 

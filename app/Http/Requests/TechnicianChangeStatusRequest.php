@@ -25,11 +25,11 @@ class TechnicianChangeStatusRequest extends FormRequest
         return [
         'order_id'     => 'required|exists:orders,id',
         'status' => 'required|in:accepted,rejected,arrived,in_progress,complete,not_complete',
-        'reason' => 'required_if:status,not_complete|nullable|string',
-        'image_before' => 'required_if:status,in_progress',
-
+       'reason_not_complete'=>'required_if:status,not_complete',
+          'reason_rejected'=>'required_if:status,rejected',
         'report' => 'required_if:status,complete|nullable|string',
-        'image_after' => 'required_if:status,complete',
+        'image_before' => 'required_if:status,in_progress|image|mimes:jpg,jpeg,png,webp|max:2048',
+      'image_after'  => 'required_if:status,complete|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
 }

@@ -18,7 +18,11 @@ class Order extends Model
         'elevator_user_id',
         'status',
         'image_before',
-        'image_after'
+        'image_after',
+        'technician_id ',
+        'manager_id',
+        'reason_rejected',
+        'reason_not_complete'
         
     ];
 

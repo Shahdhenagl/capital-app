@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
         return [
       'name' => 'required|string|max:255',
       'phone' => 'required|unique:users,phone',
-      'city'=>'required|in:مكة,جدة',
+      'city'=>'required|in:Makkah,Jeddah',
         'address' => 'required|string',
 
         'lat' => 'required|numeric',

@@ -30,7 +30,10 @@ class User extends Authenticatable
         ,'end_date',
         'start_date',
         'code',
-        'code_expires_at'
+        'code_expires_at',
+        'city',
+        'lat',
+        'long'
     ];
 
     

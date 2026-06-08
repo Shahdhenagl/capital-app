@@ -71,8 +71,23 @@ public function sendCode()
     return $code; 
 }
 
+    /**
+     * Route notifications for the WhatsApp channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForWhatsApp($notification)
+    {
+        $phone = $this->phone ?? $this->secondary_phone;
 
+        // Ensure the phone number starts with the country code, e.g., 966 for KSA
+        // This is a basic format assuming Saudi numbers if it starts with 05
+        if (strpos($phone, '05') === 0) {
+            $phone = '966' . substr($phone, 1);
+        }
 
-
+        return $phone;
+    }
 
 }

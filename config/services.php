@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'bevatel' => [
+        'url' => env('BEVATEL_URL', 'https://chat.bevatel.com/api/v1/messages'),
+        'api_key' => env('BEVATEL_API_KEY'),
+        'account_id' => env('BEVATEL_ACCOUNT_ID'),
+        'inbox_id' => env('BEVATEL_INBOX_ID'),
+    ],
+
 ];

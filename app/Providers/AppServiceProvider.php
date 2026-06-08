@@ -20,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Illuminate\Support\Facades\Event::listen(
+            \Illuminate\Notifications\Events\NotificationSent::class,
+            \App\Listeners\SendWhatsAppOnDatabaseNotification::class
+        );
 
 //        Filament::serving(function () {
 //            if (app()->getLocale() == 'ar') {
